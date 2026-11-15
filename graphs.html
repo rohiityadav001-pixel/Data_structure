@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Traversal Programs</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 25px;
+            background: #f5f5f5;
+        }
+        h1, h2 {
+            color: #234;
+        }
+        .program {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        pre {
+            background: #eee;
+            padding: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Graph Traversal Programs</h1>
+
+<div class="program">
+<h2>1. BFS (Breadth First Search)</h2>
+
+<p>BFS visits vertices level by level using a Queue.</p>
+
+<h3>C Program</h3>
+<pre>
+#include &lt;stdio.h&gt;
+
+int graph[10][10], visited[10];
+int queue[10], front = 0, rear = -1;
+int n;
+
+void BFS(int start) {
+    int i, vertex;
+
+    visited[start] = 1;
+    queue[++rear] = start;
+
+    while (front &lt;= rear) {
+        vertex = queue[front++];
+        printf("%d ", vertex);
+
+        for (i = 0; i &lt; n; i++) {
+            if (graph[vertex][i] == 1 &amp;&amp;
+                visited[i] == 0) {
+                visited[i] = 1;
+                queue[++rear] = i;
+            }
+        }
+    }
+}
+
+int main() {
+    int i, j, start;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &amp;n);
+
+    printf("Enter adjacency matrix:\n");
+
+    for (i = 0; i &lt; n; i++) {
+        for (j = 0; j &lt; n; j++) {
+            scanf("%d", &amp;graph[i][j]);
+        }
+    }
+
+    printf("Enter starting vertex (0 to %d): ", n-1);
+    scanf("%d", &amp;start);
+
+    printf("BFS Traversal: ");
+    BFS(start);
+
+    return 0;
+}
+</pre>
+
+<h3>Output</h3>
+<pre>
+Enter number of vertices: 4
+
+Enter adjacency matrix:
+0 1 1 0
+1 0 0 1
+1 0 0 1
+0 1 1 0
+
+Enter starting vertex: 0
+
+BFS Traversal: 0 1 2 3
+</pre>
+</div>
+
+<div class="program">
+<h2>2. DFS (Depth First Search)</h2>
+
+<p>DFS explores one path deeply before backtracking. It uses recursion.</p>
+
+<h3>C Program</h3>
+<pre>
+#include &lt;stdio.h&gt;
+
+int graph[10][10], visited[10];
+int n;
+
+void DFS(int vertex) {
+    int i;
+
+    visited[vertex] = 1;
+    printf("%d ", vertex);
+
+    for (i = 0; i &lt; n; i++) {
+        if (graph[vertex][i] == 1 &amp;&amp;
+            visited[i] == 0) {
+            DFS(i);
+        }
+    }
+}
+
+int main() {
+    int i, j, start;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &amp;n);
+
+    printf("Enter adjacency matrix:\n");
+
+    for (i = 0; i &lt; n; i++) {
+        for (j = 0; j &lt; n; j++) {
+            scanf("%d", &amp;graph[i][j]);
+        }
+    }
+
+    printf("Enter starting vertex (0 to %d): ", n-1);
+    scanf("%d", &amp;start);
+
+    printf("DFS Traversal: ");
+    DFS(start);
+
+    return 0;
+}
+</pre>
+
+<h3>Output</h3>
+<pre>
+Enter number of vertices: 4
+
+Enter adjacency matrix:
+0 1 1 0
+1 0 0 1
+1 0 0 1
+0 1 1 0
+
+Enter starting vertex: 0
+
+DFS Traversal: 0 1 3 2
+</pre>
+</div>
+
+<h2>Difference between BFS and DFS</h2>
+
+<table border="1" cellpadding="8">
+<tr>
+    <th>BFS</th>
+    <th>DFS</th>
+</tr>
+<tr>
+    <td>Uses Queue</td>
+    <td>Uses Stack / Recursion</td>
+</tr>
+<tr>
+    <td>Level by level</td>
+    <td>Depth wise</td>
+</tr>
+<tr>
+    <td>Uses more memory in some graphs</td>
+    <td>Often uses less memory</td>
+</tr>
+<tr>
+    <td>Time Complexity: O(V + E)</td>
+    <td>Time Complexity: O(V + E)</td>
+</tr>
+</table>
+
+</body>
+</html>

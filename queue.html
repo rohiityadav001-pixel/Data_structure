@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Queue Programs</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        h2 {
+            color: darkgreen;
+        }
+
+        .program {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid gray;
+        }
+
+        pre {
+            background-color: #eeeeee;
+            padding: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>QUEUE OPERATIONS</h1>
+<hr>
+
+<!-- LINEAR QUEUE -->
+
+<div class="program">
+
+<h2>1. Linear Queue</h2>
+
+<p>Program to perform insertion, deletion and traversal in a Linear Queue.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue()
+{
+    int item;
+
+    if(rear == MAX-1)
+    {
+        printf("Queue Overflow\n");
+    }
+    else
+    {
+        printf("Enter element: ");
+        scanf("%d", &item);
+
+        if(front == -1)
+            front = 0;
+
+        rear++;
+        queue[rear] = item;
+    }
+}
+
+void dequeue()
+{
+    if(front == -1 || front > rear)
+    {
+        printf("Queue Underflow\n");
+    }
+    else
+    {
+        printf("Deleted Element: %d\n", queue[front]);
+        front++;
+
+        if(front > rear)
+        {
+            front = rear = -1;
+        }
+    }
+}
+
+void display()
+{
+    int i;
+
+    if(front == -1)
+    {
+        printf("Queue is Empty\n");
+    }
+    else
+    {
+        printf("Queue Elements: ");
+
+        for(i = front; i <= rear; i++)
+        {
+            printf("%d ", queue[i]);
+        }
+
+        printf("\n");
+    }
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Display");
+        printf("\n4. Exit");
+
+        printf("\nEnter Choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                enqueue();
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Exit");
+                break;
+
+            default:
+                printf("Invalid Choice");
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
+</pre>
+
+<b>Sample Output:</b>
+
+<pre>
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+
+Enter Choice: 1
+Enter element: 10
+
+Enter Choice: 1
+Enter element: 20
+
+Enter Choice: 3
+Queue Elements: 10 20
+
+Enter Choice: 2
+Deleted Element: 10
+
+Enter Choice: 3
+Queue Elements: 20
+</pre>
+
+</div>
+
+<hr>
+
+<!-- CIRCULAR QUEUE -->
+
+<div class="program">
+
+<h2>2. Circular Queue</h2>
+
+<p>Program to perform insertion, deletion and traversal in a Circular Queue.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue()
+{
+    int item;
+
+    if((rear + 1) % MAX == front)
+    {
+        printf("Queue Overflow\n");
+    }
+    else
+    {
+        printf("Enter element: ");
+        scanf("%d", &item);
+
+        if(front == -1)
+        {
+            front = 0;
+            rear = 0;
+        }
+        else
+        {
+            rear = (rear + 1) % MAX;
+        }
+
+        queue[rear] = item;
+    }
+}
+
+void dequeue()
+{
+    if(front == -1)
+    {
+        printf("Queue Underflow\n");
+    }
+    else
+    {
+        printf("Deleted Element: %d\n", queue[front]);
+
+        if(front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front = (front + 1) % MAX;
+        }
+    }
+}
+
+void display()
+{
+    int i;
+
+    if(front == -1)
+    {
+        printf("Queue is Empty\n");
+    }
+    else
+    {
+        printf("Queue Elements: ");
+
+        i = front;
+
+        while(1)
+        {
+            printf("%d ", queue[i]);
+
+            if(i == rear)
+                break;
+
+            i = (i + 1) % MAX;
+        }
+
+        printf("\n");
+    }
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Display");
+        printf("\n4. Exit");
+
+        printf("\nEnter Choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                enqueue();
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Exit");
+                break;
+
+            default:
+                printf("Invalid Choice");
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
+</pre>
+
+<b>Sample Output:</b>
+
+<pre>
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+
+Enter Choice: 1
+Enter element: 10
+
+Enter Choice: 1
+Enter element: 20
+
+Enter Choice: 1
+Enter element: 30
+
+Enter Choice: 3
+Queue Elements: 10 20 30
+
+Enter Choice: 2
+Deleted Element: 10
+
+Enter Choice: 3
+Queue Elements: 20 30
+</pre>
+
+</div>
+
+<hr>
+
+<h2>Difference Between Linear Queue and Circular Queue</h2>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Linear Queue</th>
+        <th>Circular Queue</th>
+    </tr>
+    <tr>
+        <td>Follows a straight line.</td>
+        <td>Last position connects to first.</td>
+    </tr>
+    <tr>
+        <td>Memory may be wasted after deletion.</td>
+        <td>Deleted spaces can be reused.</td>
+    </tr>
+    <tr>
+        <td>Rear increases by one.</td>
+        <td>Rear moves circularly using modulo.</td>
+    </tr>
+    <tr>
+        <td>Overflow when rear = MAX-1.</td>
+        <td>Overflow when (rear+1)%MAX = front.</td>
+    </tr>
+</table>
+
+<h2>Important Points</h2>
+
+<ul>
+    <li>Enqueue means insertion.</li>
+    <li>Dequeue means deletion.</li>
+    <li>Traversal means displaying elements.</li>
+    <li>Front points to the first element.</li>
+    <li>Rear points to the last element.</li>
+    <li>Queue follows FIFO (First In, First Out).</li>
+</ul>
+
+</body>
+</html>

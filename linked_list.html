@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linked List Programs</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        h2 {
+            color: darkgreen;
+        }
+
+        .program {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid gray;
+        }
+
+        pre {
+            background-color: #eeeeee;
+            padding: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>LINKED LIST OPERATIONS</h1>
+<hr>
+
+<!-- Traversal -->
+
+<div class="program">
+
+<h2>1. Traversing a Linked List</h2>
+
+<p>Program to display all elements of a linked list.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+int main()
+{
+    struct node *head, *second, *third, *temp;
+
+    head = malloc(sizeof(struct node));
+    second = malloc(sizeof(struct node));
+    third = malloc(sizeof(struct node));
+
+    head->data = 10;
+    head->next = second;
+
+    second->data = 20;
+    second->next = third;
+
+    third->data = 30;
+    third->next = NULL;
+
+    temp = head;
+
+    while(temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>10 20 30</p>
+
+</div>
+
+<!-- Searching -->
+
+<div class="program">
+
+<h2>2. Searching in Linked List</h2>
+
+<p>Program to search an element in a linked list.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+int main()
+{
+    struct node *head, *temp;
+    int key = 20, found = 0;
+
+    head = malloc(sizeof(struct node));
+    head->data = 10;
+
+    head->next = malloc(sizeof(struct node));
+    head->next->data = 20;
+
+    head->next->next = malloc(sizeof(struct node));
+    head->next->next->data = 30;
+    head->next->next->next = NULL;
+
+    temp = head;
+
+    while(temp != NULL)
+    {
+        if(temp->data == key)
+        {
+            printf("Element Found");
+            found = 1;
+            break;
+        }
+
+        temp = temp->next;
+    }
+
+    if(found == 0)
+        printf("Element Not Found");
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>Element Found</p>
+
+</div>
+
+<!-- Insertion -->
+
+<div class="program">
+
+<h2>3. Insertion in Linked List</h2>
+
+<p>Program to insert a node at the beginning.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+int main()
+{
+    struct node *head, *newnode, *temp;
+
+    head = malloc(sizeof(struct node));
+    head->data = 20;
+    head->next = NULL;
+
+    newnode = malloc(sizeof(struct node));
+
+    newnode->data = 10;
+    newnode->next = head;
+
+    head = newnode;
+
+    temp = head;
+
+    printf("Linked List: ");
+
+    while(temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>Linked List: 10 20</p>
+
+</div>
+
+<!-- Deletion -->
+
+<div class="program">
+
+<h2>4. Deletion in Linked List</h2>
+
+<p>Program to delete a node from the beginning.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+int main()
+{
+    struct node *head, *temp;
+
+    head = malloc(sizeof(struct node));
+    head->data = 10;
+
+    head->next = malloc(sizeof(struct node));
+    head->next->data = 20;
+    head->next->next = NULL;
+
+    temp = head;
+
+    head = head->next;
+
+    free(temp);
+
+    temp = head;
+
+    printf("Linked List: ");
+
+    while(temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>Linked List: 20</p>
+
+</div>
+
+<hr>
+
+<h2>Important Points</h2>
+
+<ul>
+    <li>Traversal: Display all nodes.</li>
+    <li>Searching: Find a particular element.</li>
+    <li>Insertion: Add a new node.</li>
+    <li>Deletion: Remove a node.</li>
+</ul>
+
+</body>
+</html>

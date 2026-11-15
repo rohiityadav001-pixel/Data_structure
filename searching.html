@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Searching Programs</title>
+</head>
+
+<body>
+
+<h1 align="center">SEARCHING PROGRAMS</h1>
+<hr>
+
+<h2>1. Linear Search</h2>
+
+<p>Program to search an element using Linear Search.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int key = 30;
+    int i, found = 0;
+
+    for(i = 0; i < 5; i++)
+    {
+        if(a[i] == key)
+        {
+            printf("Element Found at position %d", i+1);
+            found = 1;
+            break;
+        }
+    }
+
+    if(found == 0)
+        printf("Element Not Found");
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>Element Found at position 3</p>
+
+<hr>
+
+<h2>2. Binary Search</h2>
+
+<p>Program to search an element using Binary Search.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int key = 30;
+
+    int low = 0, high = 4;
+    int mid, found = 0;
+
+    while(low <= high)
+    {
+        mid = (low + high) / 2;
+
+        if(a[mid] == key)
+        {
+            printf("Element Found at position %d", mid+1);
+            found = 1;
+            break;
+        }
+
+        else if(a[mid] < key)
+        {
+            low = mid + 1;
+        }
+
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    if(found == 0)
+        printf("Element Not Found");
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>Element Found at position 3</p>
+
+<hr>
+
+<h2>Difference Between Linear and Binary Search</h2>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Linear Search</th>
+        <th>Binary Search</th>
+    </tr>
+
+    <tr>
+        <td>Checks elements one by one.</td>
+        <td>Divides the array into halves.</td>
+    </tr>
+
+    <tr>
+        <td>Works on sorted and unsorted arrays.</td>
+        <td>Requires a sorted array.</td>
+    </tr>
+
+    <tr>
+        <td>Time: O(n)</td>
+        <td>Time: O(log n)</td>
+    </tr>
+</table>
+
+</body>
+</html>

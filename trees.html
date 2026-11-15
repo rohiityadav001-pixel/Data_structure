@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Binary Tree Programs</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 25px;
+            background: #f5f5f5;
+        }
+        h1, h2 {
+            color: #234;
+        }
+        .program {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        pre {
+            background: #eee;
+            padding: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Binary Tree Programs</h1>
+
+<div class="program">
+<h2>1. Insertion in Binary Tree</h2>
+
+<p>This program inserts a new node at the first available position using level order.</p>
+
+<h3>C Program</h3>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+struct Node* insert(struct Node* root, int value) {
+    struct Node* newNode =
+        (struct Node*)malloc(sizeof(struct Node));
+
+    newNode-&gt;data = value;
+    newNode-&gt;left = NULL;
+    newNode-&gt;right = NULL;
+
+    if (root == NULL)
+        return newNode;
+
+    struct Node* queue[100];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    while (front &lt; rear) {
+        struct Node* temp = queue[front++];
+
+        if (temp-&gt;left == NULL) {
+            temp-&gt;left = newNode;
+            return root;
+        }
+        else
+            queue[rear++] = temp-&gt;left;
+
+        if (temp-&gt;right == NULL) {
+            temp-&gt;right = newNode;
+            return root;
+        }
+        else
+            queue[rear++] = temp-&gt;right;
+    }
+
+    return root;
+}
+
+void display(struct Node* root) {
+    if (root == NULL)
+        return;
+
+    struct Node* queue[100];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    while (front &lt; rear) {
+        struct Node* temp = queue[front++];
+        printf("%d ", temp-&gt;data);
+
+        if (temp-&gt;left != NULL)
+            queue[rear++] = temp-&gt;left;
+
+        if (temp-&gt;right != NULL)
+            queue[rear++] = temp-&gt;right;
+    }
+}
+
+int main() {
+    struct Node* root = NULL;
+
+    root = insert(root, 10);
+    root = insert(root, 20);
+    root = insert(root, 30);
+    root = insert(root, 40);
+
+    printf("Binary Tree: ");
+    display(root);
+
+    return 0;
+}
+</pre>
+
+<h3>Output</h3>
+<pre>
+Binary Tree: 10 20 30 40
+</pre>
+</div>
+
+<div class="program">
+<h2>2. Deletion in Binary Tree</h2>
+
+<p>This program deletes a node by replacing it with the deepest rightmost node.</p>
+
+<h3>C Program</h3>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+void deleteNode(struct Node* root, int key) {
+    if (root == NULL)
+        return;
+
+    if (root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL) {
+        if (root-&gt;data == key)
+            root-&gt;data = -1;
+        return;
+    }
+
+    struct Node* queue[100];
+    struct Node* temp;
+    struct Node* keyNode = NULL;
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    while (front &lt; rear) {
+        temp = queue[front++];
+
+        if (temp-&gt;data == key)
+            keyNode = temp;
+
+        if (temp-&gt;left != NULL)
+            queue[rear++] = temp-&gt;left;
+
+        if (temp-&gt;right != NULL)
+            queue[rear++] = temp-&gt;right;
+    }
+
+    if (keyNode != NULL) {
+        int deepestData = temp-&gt;data;
+        keyNode-&gt;data = deepestData;
+
+        front = 0;
+        rear = 0;
+        queue[rear++] = root;
+
+        while (front &lt; rear) {
+            temp = queue[front++];
+
+            if (temp-&gt;left != NULL) {
+                if (temp-&gt;left == NULL)
+                    break;
+
+                if (temp-&gt;left-&gt;left == NULL &amp;&amp;
+                    temp-&gt;left-&gt;right == NULL &amp;&amp;
+                    temp-&gt;left-&gt;data == deepestData) {
+                    free(temp-&gt;left);
+                    temp-&gt;left = NULL;
+                    return;
+                }
+                queue[rear++] = temp-&gt;left;
+            }
+
+            if (temp-&gt;right != NULL) {
+                if (temp-&gt;right-&gt;left == NULL &amp;&amp;
+                    temp-&gt;right-&gt;right == NULL &amp;&amp;
+                    temp-&gt;right-&gt;data == deepestData) {
+                    free(temp-&gt;right);
+                    temp-&gt;right = NULL;
+                    return;
+                }
+                queue[rear++] = temp-&gt;right;
+            }
+        }
+    }
+}
+
+void display(struct Node* root) {
+    if (root == NULL)
+        return;
+
+    struct Node* queue[100];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    while (front &lt; rear) {
+        struct Node* temp = queue[front++];
+        printf("%d ", temp-&gt;data);
+
+        if (temp-&gt;left != NULL)
+            queue[rear++] = temp-&gt;left;
+
+        if (temp-&gt;right != NULL)
+            queue[rear++] = temp-&gt;right;
+    }
+}
+
+struct Node* createNode(int value) {
+    struct Node* node = malloc(sizeof(struct Node));
+    node-&gt;data = value;
+    node-&gt;left = node-&gt;right = NULL;
+    return node;
+}
+
+int main() {
+    struct Node* root = createNode(10);
+    root-&gt;left = createNode(20);
+    root-&gt;right = createNode(30);
+    root-&gt;left-&gt;left = createNode(40);
+    root-&gt;left-&gt;right = createNode(50);
+
+    printf("Before Deletion: ");
+    display(root);
+
+    deleteNode(root, 20);
+
+    printf("\nAfter Deletion: ");
+    display(root);
+
+    return 0;
+}
+</pre>
+
+<h3>Output</h3>
+<pre>
+Before Deletion: 10 20 30 40 50
+After Deletion: 10 50 30 40
+</pre>
+</div>
+
+<div class="program">
+<h2>3. Searching in Binary Tree</h2>
+
+<p>This program searches for a value using level-order traversal.</p>
+
+<h3>C Program</h3>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+int search(struct Node* root, int key) {
+    if (root == NULL)
+        return 0;
+
+    struct Node* queue[100];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    while (front &lt; rear) {
+        struct Node* temp = queue[front++];
+
+        if (temp-&gt;data == key)
+            return 1;
+
+        if (temp-&gt;left != NULL)
+            queue[rear++] = temp-&gt;left;
+
+        if (temp-&gt;right != NULL)
+            queue[rear++] = temp-&gt;right;
+    }
+
+    return 0;
+}
+
+struct Node* createNode(int value) {
+    struct Node* node = malloc(sizeof(struct Node));
+    node-&gt;data = value;
+    node-&gt;left = node-&gt;right = NULL;
+    return node;
+}
+
+int main() {
+    struct Node* root = createNode(10);
+    root-&gt;left = createNode(20);
+    root-&gt;right = createNode(30);
+    root-&gt;left-&gt;left = createNode(40);
+    root-&gt;left-&gt;right = createNode(50);
+
+    int key = 40;
+
+    if (search(root, key))
+        printf("%d is Found in Binary Tree", key);
+    else
+        printf("%d is Not Found in Binary Tree", key);
+
+    return 0;
+}
+</pre>
+
+<h3>Output</h3>
+<pre>
+40 is Found in Binary Tree
+</pre>
+</div>
+
+</body>
+</html>

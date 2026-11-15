@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Programs</title>
+</head>
+
+<body>
+
+<h1 align="center">SORTING PROGRAMS</h1>
+<hr>
+
+<h2>1. Bubble Sort</h2>
+<p>Program to sort an array using Bubble Sort.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a[5] = {5, 2, 8, 1, 3};
+    int i, j, temp;
+
+    for(i = 0; i < 5; i++)
+    {
+        for(j = 0; j < 4-i; j++)
+        {
+            if(a[j] > a[j+1])
+            {
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted Array: ");
+    for(i = 0; i < 5; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>1 2 3 5 8</p>
+
+<hr>
+
+<h2>2. Insertion Sort</h2>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a[5] = {5, 2, 8, 1, 3};
+    int i, j, key;
+
+    for(i = 1; i < 5; i++)
+    {
+        key = a[i];
+        j = i - 1;
+
+        while(j >= 0 && a[j] > key)
+        {
+            a[j+1] = a[j];
+            j--;
+        }
+
+        a[j+1] = key;
+    }
+
+    printf("Sorted Array: ");
+    for(i = 0; i < 5; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>1 2 3 5 8</p>
+
+<hr>
+
+<h2>3. Selection Sort</h2>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a[5] = {5, 2, 8, 1, 3};
+    int i, j, min, temp;
+
+    for(i = 0; i < 4; i++)
+    {
+        min = i;
+
+        for(j = i+1; j < 5; j++)
+        {
+            if(a[j] < a[min])
+                min = j;
+        }
+
+        temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+
+    printf("Sorted Array: ");
+    for(i = 0; i < 5; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>1 2 3 5 8</p>
+
+<hr>
+
+<h2>4. Merge Sort</h2>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+void merge(int a[], int l, int m, int r)
+{
+    int temp[20], i=l, j=m+1, k=0;
+
+    while(i<=m && j<=r)
+    {
+        if(a[i] < a[j])
+            temp[k++] = a[i++];
+        else
+            temp[k++] = a[j++];
+    }
+
+    while(i<=m)
+        temp[k++] = a[i++];
+
+    while(j<=r)
+        temp[k++] = a[j++];
+
+    for(i=l, k=0; i<=r; i++, k++)
+        a[i] = temp[k];
+}
+
+void mergeSort(int a[], int l, int r)
+{
+    if(l < r)
+    {
+        int m = (l+r)/2;
+
+        mergeSort(a, l, m);
+        mergeSort(a, m+1, r);
+        merge(a, l, m, r);
+    }
+}
+
+int main()
+{
+    int a[5] = {5, 2, 8, 1, 3};
+    int i;
+
+    mergeSort(a, 0, 4);
+
+    printf("Sorted Array: ");
+    for(i=0; i<5; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>1 2 3 5 8</p>
+
+<hr>
+
+<h2>5. Quick Sort</h2>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+void quickSort(int a[], int low, int high)
+{
+    int i, j, pivot, temp;
+
+    if(low < high)
+    {
+        pivot = a[low];
+        i = low + 1;
+        j = high;
+
+        while(i <= j)
+        {
+            while(i <= high && a[i] <= pivot)
+                i++;
+
+            while(a[j] > pivot)
+                j--;
+
+            if(i < j)
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+
+        temp = a[low];
+        a[low] = a[j];
+        a[j] = temp;
+
+        quickSort(a, low, j-1);
+        quickSort(a, j+1, high);
+    }
+}
+
+int main()
+{
+    int a[5] = {5, 2, 8, 1, 3};
+    int i;
+
+    quickSort(a, 0, 4);
+
+    printf("Sorted Array: ");
+    for(i=0; i<5; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<p>1 2 3 5 8</p>
+
+<hr>
+
+</body>
+</html>

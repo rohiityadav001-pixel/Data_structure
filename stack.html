@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stack Operations</title>
+</head>
+
+<body>
+
+<h1 align="center">STACK OPERATIONS</h1>
+<hr>
+
+<h2>1. Stack Traversal</h2>
+
+<p>Program to display all elements of a stack.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int stack[5] = {10, 20, 30, 40, 50};
+    int top = 4, i;
+
+    printf("Stack Elements:\n");
+
+    for(i = top; i >= 0; i--)
+    {
+        printf("%d\n", stack[i]);
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<pre>
+Stack Elements:
+50
+40
+30
+20
+10
+</pre>
+
+<hr>
+
+<h2>2. Stack Insertion (PUSH)</h2>
+
+<p>Program to insert an element into the stack.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int stack[5] = {10, 20, 30};
+    int top = 2;
+    int item = 40;
+
+    if(top == 4)
+    {
+        printf("Stack Overflow");
+    }
+    else
+    {
+        top++;
+        stack[top] = item;
+
+        printf("Element Inserted\n");
+        printf("Stack Elements:\n");
+
+        for(int i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<pre>
+Element Inserted
+Stack Elements:
+40
+30
+20
+10
+</pre>
+
+<hr>
+
+<h2>3. Stack Deletion (POP)</h2>
+
+<p>Program to delete an element from the stack.</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int stack[5] = {10, 20, 30, 40};
+    int top = 3;
+
+    if(top == -1)
+    {
+        printf("Stack Underflow");
+    }
+    else
+    {
+        printf("Deleted Element = %d\n", stack[top]);
+        top--;
+
+        printf("Stack Elements:\n");
+
+        for(int i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
+
+    return 0;
+}
+</pre>
+
+<b>Output:</b>
+<pre>
+Deleted Element = 40
+Stack Elements:
+30
+20
+10
+</pre>
+
+<hr>
+
+<h2>Stack Operations</h2>
+
+<ul>
+    <li><b>Push:</b> Insertion of an element into the stack.</li>
+    <li><b>Pop:</b> Deletion of the top element.</li>
+    <li><b>Traversal:</b> Displaying all stack elements.</li>
+</ul>
+
+</body>
+</html>
